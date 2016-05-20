@@ -10,12 +10,12 @@ final public class TopGames {
     @SerializedName("_links")
     final private Links links;
     @SerializedName("top")
-    final private List<GameItem> gameList;
+    final private List<GameItem> gameItemList;
 
-    public TopGames(int total, Links links, List<GameItem> gameList) {
+    public TopGames(int total, Links links, List<GameItem> gameItemList) {
         this.total = total;
         this.links = links;
-        this.gameList = gameList;
+        this.gameItemList = gameItemList;
     }
 
     public int getTotal() {
@@ -26,7 +26,7 @@ final public class TopGames {
         return links;
     }
 
-    public List<GameItem> getGameList() {
-        return gameList;
+    public List<GameItem> getGameItemList() {
+        return gameItemList;
     }
 }
