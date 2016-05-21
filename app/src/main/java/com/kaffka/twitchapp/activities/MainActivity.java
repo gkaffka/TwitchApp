@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                 @Override
                 public void onFailure(Call<TopGames> call, Throwable t) {
+                    stopLoadings();
                     initSnackbar(R.string.error);
                     snackbar.show();
                 }
@@ -96,13 +97,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-        // clearAndUpdateList();
         loadGames(50, null);
-    }
-
-    private void clearAndUpdateList() {
-        gameItemList.clear();
-        adapter.notifyDataSetChanged();
     }
 
     private void stopLoadings() {
