@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TwitchApp</string>
     <string name="error">Ops, algo estranho aconteceu&#8230;</string>
-    <string name="channel">CHANNELS:</string>
-    <string name="viewers">VIEWERS:</string>
+    <string name="channel">Channels:</string>
+    <string name="viewers">Viewers:</string>
     <string name="action_settings">Settings</string>
 </resources>

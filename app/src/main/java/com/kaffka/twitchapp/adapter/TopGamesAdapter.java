@@ -89,6 +89,7 @@ public class TopGamesAdapter extends RecyclerView.Adapter<TopGamesAdapter.ViewHo
         Intent i = new Intent(ctx, DetailsActivity.class);
         i.putExtra(Utils.Keys.TITLE.name(), gameItem.getGame().getName());
         i.putExtra(Utils.Keys.URL_LOGO.name(), gameItem.getGame().getLogo().getTemplate());
+        i.putExtra(Utils.Keys.URL_BOX.name(), gameItem.getGame().getBox().getTemplate());
         i.putExtra(Utils.Keys.CHANNEL.name(), String.valueOf(gameItem.getChannels()));
         i.putExtra(Utils.Keys.VIEWER.name(), String.valueOf(gameItem.getViewers()));
         return i;

@@ -99,4 +99,5 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
+
 }

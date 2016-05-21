@@ -18,6 +18,8 @@ public class DetailsActivity extends AppCompatActivity {
     TextView txtGameTitle;
     @Bind(R.id.txt_details)
     TextView txtGameDetails;
+    @Bind(R.id.img_box)
+    ImageView imgBox;
     @Bind(R.id.img_logo)
     ImageView imgLogo;
 
@@ -26,9 +28,19 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
+        loadBox();
         loadLogo();
         loadTitle();
         loadDetails();
+    }
+
+    private void loadBox() {
+        String url = getIntent().getStringExtra(Utils.Keys.URL_BOX.name());
+        Picasso.with(imgBox.getContext())
+                .load(Utils.getBoxUrl(url, this))
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .into(imgBox);
     }
 
     private void loadLogo() {
@@ -39,6 +51,7 @@ public class DetailsActivity extends AppCompatActivity {
                 .error(R.drawable.placeholder)
                 .into(imgLogo);
     }
+
 
     private void loadTitle() {
         txtGameTitle.setText(getExtra(Utils.Keys.TITLE));
