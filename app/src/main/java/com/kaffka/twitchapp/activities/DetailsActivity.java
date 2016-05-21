@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kaffka.twitchapp.Constants;
+import com.kaffka.twitchapp.Utils;
 import com.kaffka.twitchapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -32,23 +32,24 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void loadLogo() {
+        String url = getIntent().getStringExtra(Utils.Keys.URL_LOGO.name());
         Picasso.with(imgLogo.getContext())
-                .load(getIntent().getStringExtra(Constants.Keys.URL_LOGO.name()))
+                .load(Utils.getLogoUrl(url, this))
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .into(imgLogo);
     }
 
     private void loadTitle() {
-        txtGameTitle.setText(getExtra(Constants.Keys.TITLE));
+        txtGameTitle.setText(getExtra(Utils.Keys.TITLE));
     }
 
     private void loadDetails() {
-        String details = buildDetails(getExtra(Constants.Keys.CHANNEL), getExtra(Constants.Keys.VIEWER));
+        String details = buildDetails(getExtra(Utils.Keys.CHANNEL), getExtra(Utils.Keys.VIEWER));
         txtGameDetails.setText(details);
     }
 
-    private String getExtra(Constants.Keys key) {
+    private String getExtra(Utils.Keys key) {
         return getIntent().getStringExtra(key.name()) == null ? getString(R.string.error) : getIntent().getStringExtra(key.name());
     }
 

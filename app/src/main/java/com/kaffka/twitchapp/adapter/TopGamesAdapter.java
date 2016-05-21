@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kaffka.twitchapp.Constants;
+import com.kaffka.twitchapp.Utils;
 import com.kaffka.twitchapp.R;
 import com.kaffka.twitchapp.activities.DetailsActivity;
 import com.kaffka.twitchapp.models.GameItem;
@@ -54,7 +54,7 @@ public class TopGamesAdapter extends RecyclerView.Adapter<TopGamesAdapter.ViewHo
     @Override
     public void onBindViewHolder(TopGamesAdapter.ViewHolder holder, int position) {
         final GameItem gameItem = mGameItemList.get(position);
-        loadImage(gameItem.getGame().getBox().getLarge(), holder.imgBox);
+        loadImage(gameItem.getGame().getBox().getTemplate(), holder.imgBox);
         loadText(gameItem.getGame().getName(), holder.txtGameTitle);
         loadDetails(gameItem, holder.relItem);
     }
@@ -66,7 +66,7 @@ public class TopGamesAdapter extends RecyclerView.Adapter<TopGamesAdapter.ViewHo
 
     private void loadImage(String url, ImageView img) {
         Picasso.with(img.getContext())
-                .load(url)
+                .load(Utils.getBoxUrl(url,img.getContext()))
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .into(img);
@@ -87,10 +87,10 @@ public class TopGamesAdapter extends RecyclerView.Adapter<TopGamesAdapter.ViewHo
 
     private Intent getDetailIntent(GameItem gameItem, Context ctx) {
         Intent i = new Intent(ctx, DetailsActivity.class);
-        i.putExtra(Constants.Keys.TITLE.name(), gameItem.getGame().getName());
-        i.putExtra(Constants.Keys.URL_LOGO.name(), gameItem.getGame().getLogo().getLarge());
-        i.putExtra(Constants.Keys.CHANNEL.name(), String.valueOf(gameItem.getChannels()));
-        i.putExtra(Constants.Keys.VIEWER.name(), String.valueOf(gameItem.getViewers()));
+        i.putExtra(Utils.Keys.TITLE.name(), gameItem.getGame().getName());
+        i.putExtra(Utils.Keys.URL_LOGO.name(), gameItem.getGame().getLogo().getTemplate());
+        i.putExtra(Utils.Keys.CHANNEL.name(), String.valueOf(gameItem.getChannels()));
+        i.putExtra(Utils.Keys.VIEWER.name(), String.valueOf(gameItem.getViewers()));
         return i;
     }
 }
