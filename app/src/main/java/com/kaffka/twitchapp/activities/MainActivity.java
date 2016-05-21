@@ -1,7 +1,6 @@
 package com.kaffka.twitchapp.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +22,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     RecyclerView recyclerView;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.fab)
-    FloatingActionButton fab;
     @Bind(R.id.progress)
     ProgressBar progressBar;
     private List<GameItem> gameItemList;
@@ -70,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private void loadGames(Integer limit, Integer offset) {
         if (Utils.isInternetAvailable(this)) {
-            snackbar.dismiss();
+            if (snackbar != null) snackbar.dismiss();
             TwitchService.createTwitchService().getTopGames(limit, offset).enqueue(new Callback<TopGames>() {
                 @Override
                 public void onResponse(Call<TopGames> call, Response<TopGames> response) {
@@ -107,12 +103,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private void clearAndUpdateList() {
         gameItemList.clear();
         adapter.notifyDataSetChanged();
-    }
-
-    @OnClick(R.id.fab)
-    public void fabClick(View v) {
-        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
     }
 
     private void stopLoadings() {
