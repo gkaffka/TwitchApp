@@ -18,4 +18,3 @@ You can [build and run](https://developer.android.com/tools/building/building-st
 
 ###Screenshots
 ![](app_gif.gif)
-RE
