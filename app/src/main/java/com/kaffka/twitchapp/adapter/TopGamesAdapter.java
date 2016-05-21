@@ -1,13 +1,18 @@
 package com.kaffka.twitchapp.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kaffka.twitchapp.Constants;
 import com.kaffka.twitchapp.R;
+import com.kaffka.twitchapp.activities.DetailsActivity;
 import com.kaffka.twitchapp.models.GameItem;
 import com.squareup.picasso.Picasso;
 
@@ -23,9 +28,11 @@ public class TopGamesAdapter extends RecyclerView.Adapter<TopGamesAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.img_box)
-        ImageView mImgBox;
+        ImageView imgBox;
         @Bind(R.id.txt_game_title)
-        TextView mTxtGameTitle;
+        TextView txtGameTitle;
+        @Bind(R.id.rel_item)
+        RelativeLayout relItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -47,8 +54,9 @@ public class TopGamesAdapter extends RecyclerView.Adapter<TopGamesAdapter.ViewHo
     @Override
     public void onBindViewHolder(TopGamesAdapter.ViewHolder holder, int position) {
         final GameItem gameItem = mGameItemList.get(position);
-        loadImage(gameItem.getGame().getBox().getLarge(), holder.mImgBox);
-        loadText(gameItem.getGame().getName(), holder.mTxtGameTitle);
+        loadImage(gameItem.getGame().getBox().getLarge(), holder.imgBox);
+        loadText(gameItem.getGame().getName(), holder.txtGameTitle);
+        loadDetails(gameItem, holder.relItem);
     }
 
     @Override
@@ -66,5 +74,23 @@ public class TopGamesAdapter extends RecyclerView.Adapter<TopGamesAdapter.ViewHo
 
     private void loadText(String text, TextView txt) {
         txt.setText(text);
+    }
+
+    private void loadDetails(final GameItem gameItem, final View v) {
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                v.getContext().startActivity(getDetailIntent(gameItem, v.getContext()));
+            }
+        });
+    }
+
+    private Intent getDetailIntent(GameItem gameItem, Context ctx) {
+        Intent i = new Intent(ctx, DetailsActivity.class);
+        i.putExtra(Constants.Keys.TITLE.name(), gameItem.getGame().getName());
+        i.putExtra(Constants.Keys.URL_LOGO.name(), gameItem.getGame().getLogo().getLarge());
+        i.putExtra(Constants.Keys.CHANNEL.name(), String.valueOf(gameItem.getChannels()));
+        i.putExtra(Constants.Keys.VIEWER.name(), String.valueOf(gameItem.getViewers()));
+        return i;
     }
 }

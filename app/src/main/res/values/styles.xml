@@ -24,7 +24,25 @@
         <item name="android:lines">3</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@color/colorDarkGray</item>
+        <item name="android:background">@color/colorTransparentDark</item>
         <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="TextDetails" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lines">3</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="TextDetailsTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:lines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>
