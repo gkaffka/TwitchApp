@@ -1,7 +1,9 @@
 package com.kaffka.twitchapp.activities;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
+        initActionBar();
         loadBox();
         loadLogo();
         loadTitle();
@@ -68,5 +71,21 @@ public class DetailsActivity extends AppCompatActivity {
 
     private String buildDetails(String channels, String views) {
         return String.format("%s %s\n%s %s", getString(R.string.channel), channels, getString(R.string.viewers), views);
+    }
+
+    private void initActionBar() {
+        ActionBar act = getSupportActionBar();
+        if (act == null) return;
+        act.setDisplayHomeAsUpEnabled(true);
+        act.setTitle(getExtra(Utils.Keys.TITLE));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default:
+                this.finish();
+                return true;
+        }
     }
 }
