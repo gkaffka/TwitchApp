@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kaffka.twitchapp.Utils;
 import com.kaffka.twitchapp.R;
+import com.kaffka.twitchapp.Utils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -37,7 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
     private void loadBox() {
         String url = getIntent().getStringExtra(Utils.Keys.URL_BOX.name());
         Picasso.with(imgBox.getContext())
-                .load(Utils.getBoxUrl(url, this))
+                .load(Utils.getBoxUrl(url, Utils.getDensity(this)))
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .into(imgBox);
@@ -46,7 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
     private void loadLogo() {
         String url = getIntent().getStringExtra(Utils.Keys.URL_LOGO.name());
         Picasso.with(imgLogo.getContext())
-                .load(Utils.getLogoUrl(url, this))
+                .load(Utils.getLogoUrl(url, Utils.getDensity(this)))
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .into(imgLogo);

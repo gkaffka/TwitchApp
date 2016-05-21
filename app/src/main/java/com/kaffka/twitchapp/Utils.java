@@ -14,19 +14,19 @@ public class Utils {
         VIEWER,
     }
 
-    public static String getLogoUrl(String url, Context ctx) {
-        String width = String.valueOf((int) (64 * getDensity(ctx)));
-        String height = String.valueOf((int) (38 * getDensity(ctx)));
+    public static String getLogoUrl(String url, float density) {
+        String width = String.valueOf((int) (64 * density));
+        String height = String.valueOf((int) (38 * density));
         return url.replace("{width}", width).replace("{height}", height);
     }
 
-    public static String getBoxUrl(String url, Context ctx) {
-        String width = String.valueOf((int) (152 * getDensity(ctx)));
-        String height = String.valueOf((int) (218 * getDensity(ctx)));
+    public static String getBoxUrl(String url, float density) {
+        String width = String.valueOf((int) (152 * density));
+        String height = String.valueOf((int) (218 * density));
         return url.replace("{width}", width).replace("{height}", height);
     }
 
-    private static float getDensity(Context ctx) {
+    public static float getDensity(Context ctx) {
         return ctx.getResources().getDisplayMetrics().density;
     }
 
@@ -38,13 +38,5 @@ public class Utils {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
-    }
-
-    public static boolean isWifi(Context context) {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return isInternetAvailable(context) && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
     }
 }

@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kaffka.twitchapp.Utils;
 import com.kaffka.twitchapp.R;
+import com.kaffka.twitchapp.Utils;
 import com.kaffka.twitchapp.activities.DetailsActivity;
 import com.kaffka.twitchapp.models.GameItem;
 import com.squareup.picasso.Picasso;
@@ -66,7 +66,7 @@ public class TopGamesAdapter extends RecyclerView.Adapter<TopGamesAdapter.ViewHo
 
     private void loadImage(String url, ImageView img) {
         Picasso.with(img.getContext())
-                .load(Utils.getBoxUrl(url,img.getContext()))
+                .load(Utils.getBoxUrl(url, Utils.getDensity(img.getContext())))
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .into(img);
