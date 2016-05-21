@@ -27,8 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:src="@drawable/twitch_logo"
                 android:scaleType="centerInside"
+                android:src="@drawable/twitch_logo"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
@@ -58,6 +58,5 @@
         android:src="@android:drawable/ic_dialog_email"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end" />
-
 
 </android.support.design.widget.CoordinatorLayout>

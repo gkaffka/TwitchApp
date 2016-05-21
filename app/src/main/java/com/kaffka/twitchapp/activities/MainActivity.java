@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.kaffka.twitchapp.R;
+import com.kaffka.twitchapp.Utils;
 import com.kaffka.twitchapp.adapter.TopGamesAdapter;
 import com.kaffka.twitchapp.api_services.TwitchService;
 import com.kaffka.twitchapp.models.GameItem;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     ProgressBar progressBar;
     private List<GameItem> gameItemList;
     private TopGamesAdapter adapter;
+    private Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,31 +69,44 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void loadGames(Integer limit, Integer offset) {
-        TwitchService.createTwitchService().getTopGames(limit, offset).enqueue(new Callback<TopGames>() {
-            @Override
-            public void onResponse(Call<TopGames> call, Response<TopGames> response) {
-                if (response.isSuccessful())
-                    updateList(response.body().getGameItemList());
-            }
+        if (Utils.isInternetAvailable(this)) {
+            snackbar.dismiss();
+            TwitchService.createTwitchService().getTopGames(limit, offset).enqueue(new Callback<TopGames>() {
+                @Override
+                public void onResponse(Call<TopGames> call, Response<TopGames> response) {
+                    if (response.isSuccessful())
+                        updateList(response.body().getGameItemList());
+                }
 
-            @Override
-            public void onFailure(Call<TopGames> call, Throwable t) {
-
-            }
-        });
+                @Override
+                public void onFailure(Call<TopGames> call, Throwable t) {
+                    initSnackbar(R.string.error);
+                    snackbar.show();
+                }
+            });
+        } else {
+            initSnackbar(R.string.error_no_internet);
+            snackbar.show();
+            stopLoadings();
+        }
     }
 
     private void updateList(List<GameItem> list) {
         gameItemList.clear();
         gameItemList.addAll(list);
         adapter.notifyDataSetChanged();
-        progressBar.setVisibility(View.GONE);
-        swipeRefreshLayout.setRefreshing(false);
+        stopLoadings();
     }
 
     @Override
     public void onRefresh() {
+        // clearAndUpdateList();
         loadGames(50, null);
+    }
+
+    private void clearAndUpdateList() {
+        gameItemList.clear();
+        adapter.notifyDataSetChanged();
     }
 
     @OnClick(R.id.fab)
@@ -100,4 +115,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 .setAction("Action", null).show();
     }
 
+    private void stopLoadings() {
+        progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void initSnackbar(int messageId) {
+        snackbar = Snackbar.make(recyclerView, messageId, Snackbar.LENGTH_INDEFINITE);
+    }
 }
