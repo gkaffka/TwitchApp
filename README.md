@@ -1,5 +1,5 @@
 # TwitchApp
-An app that consumes the [Twitch API](https://github.com/justintv/Twitch-API/blob/master/v3_resources/games.md#get-gamestop) and dysplays the top 50 games being played. 
+An app that consumes the [Twitch API](https://github.com/justintv/Twitch-API/blob/master/v3_resources/games.md#get-gamestop) and displays the top 50 games being played. 
 
 ###Getting started
 Clone the repository and import the project in Android Studio, you can try the app installing the `twicthapp.apk` available in the project root.
